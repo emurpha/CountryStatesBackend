@@ -1,12 +1,19 @@
 from django.db import models
 
-# Create your models here.
+
 class Country(models.Model):
-    country_name = models.CharField(max_length=200)
-    country_code = models.CharField(max_length=200)
+    name = models.CharField(max_length=100, blank=True, default='')
+    code = models.CharField(max_length=2, blank=True, default='')
+    # def save(self, *args, **kwargs):
+    #     options = {'name': self.name} if self.name else {}
+    #     super(Country, self).save(*args,**kwargs)
+
 
 class State(models.Model):
-    state_name = models.CharField(max_length=200)
-    state_code = models.CharField(max_length=200)
-    country_id = models.ForeignKey(Country, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, blank=True, default='')
+    code = models.CharField(max_length=2, blank=True, default='')
+    countryId = models.ForeignKey('Country',related_name='countries', on_delete=models.CASCADE, default='')
+    def save(self, *args, **kwargs):
+        options = {'name': self.name} if self.name else {}
+        super(State, self).save(*args,**kwargs)
 
