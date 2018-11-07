@@ -5,7 +5,7 @@ from django.urls import path
 
 router = DefaultRouter()
 router.register(r'countries', views.CountryViewSet)
-router.register(r'countries/<countrycode>/states', views.StateViewSet)
+router.register(r'countries/<str:pk>/states', views.StateViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

@@ -24,9 +24,5 @@ router.register(r'countries', views.CountryViewSet)
 router.register(r'states', views.StateViewSet)
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
-    # path('countries/', include('country.urls')),
-    # url(r'^', include(router.urls)),
-    # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('', include('country.urls'))
 ]
