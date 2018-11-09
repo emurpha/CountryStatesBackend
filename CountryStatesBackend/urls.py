@@ -19,9 +19,9 @@ from django.conf.urls import url, include
 from rest_framework import routers
 from country import views
 
-router = routers.DefaultRouter()
-router.register(r'countries', views.CountryViewSet)
-router.register(r'states', views.StateViewSet)
+# router = routers.DefaultRouter()
+# router.register(r'countries', views.CountryViewSet)
+# router.register(r'states', views.StateViewSet)
 
 urlpatterns = [
     path('', include('country.urls'))

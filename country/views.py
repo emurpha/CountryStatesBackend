@@ -14,13 +14,14 @@ class CountryViewSet(viewsets.ModelViewSet):
     serializer_class = CountrySerializer
 
 class StateViewSet(viewsets.ModelViewSet):
-    queryset = State.objects.all()
+    queryset = State.objects.get_queryset()
     serializer_class = StateSerializer
-    # def get_queryset(self):
-    #     countryCode = self.kwargs.get('code')
-    #     #get object or 404
-    #     country=get_object_or_404(Country,code=countryCode)
-    #     return country.states.all()
+    def get_queryset(self):
+        countryCode = self.kwargs.get('code')
+        #get object or 404
+        country=get_object_or_404(Country,code=countryCode)
+        return country.states.all()
+    # queryset = get_queryset()
 
 
 
