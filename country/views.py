@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404
 # from django.http import HttpResponse
 from country.models import Country, State
 from rest_framework import viewsets
-from country.serializers import CountrySerializer, StateSerializer
+from country.serializers import CountrySerializer, StateSerializer, StateCreateSerializer
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.decorators import api_view
@@ -12,6 +12,10 @@ from rest_framework.decorators import api_view
 class CountryViewSet(viewsets.ModelViewSet):
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
+    def list(self, request):
+        r = super().list(self, request)
+        r.data = r.data['results']
+        return r
 
 class StateViewSet(viewsets.ModelViewSet):
     queryset = State.objects.get_queryset()
@@ -21,12 +25,21 @@ class StateViewSet(viewsets.ModelViewSet):
         #get object or 404
         country=get_object_or_404(Country,code=countryCode)
         return country.states.all()
-    # queryset = get_queryset()
+    
+    def get_serializer_class(self):
+        serializer_class = self.serializer_class
+        if self.request.method == 'POST':
+            serializer_class = StateCreateSerializer
+        return serializer_class
+
+    def list(self, request, **kwargs):
+        r = super().list(self, request, **kwargs)
+        r.data = r.data['results']
+        return r
+    
+    def perform_create(self, *args):
+        print(args)
+        super().perform_create(*args)
 
 
 
-# @api_view(['GET'])
-# def api_root(request, format=None):
-#     return Response({
-#         'country': reverse('country-list', request=request, format=format)
-#     })
