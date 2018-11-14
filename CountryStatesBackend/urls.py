@@ -24,5 +24,5 @@ from country import views
 # router.register(r'states', views.StateViewSet)
 
 urlpatterns = [
-    path('', include('country.urls'))
+    path('', include('country.urls')),
 ]

@@ -37,9 +37,15 @@ class StateViewSet(viewsets.ModelViewSet):
         r.data = r.data['results']
         return r
     
-    def perform_create(self, *args):
-        print(args)
-        super().perform_create(*args)
+    # def create(self, request, **kwargs):
+    #     state = super().create(self, request, **kwargs)
+    #     return state
+    def post_state(self, request, **kwargs):
+        state = super().create(self, request, **kwargs)
+        return state
+
+        
+
 
 
 
