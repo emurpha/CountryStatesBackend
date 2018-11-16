@@ -26,11 +26,5 @@ class StateCreateSerializer(serializers.ModelSerializer):
         country_object = validated_data.pop('countryId')
         country = country_object.pop('code')
         country = get_object_or_404(Country, code=country)
-        # state = State.objects.create(**validated_data, countryId=country)
-        state = State.objects.create(
-            code = validated_data['code'],
-            name = validated_data['name'],
-            countryId = country,
-        )
-        return state
+        state = State.objects.create(**validated_data, countryId=country)
         return state

@@ -19,7 +19,7 @@ class CountryViewSet(viewsets.ModelViewSet):
 
 class StateViewSet(viewsets.ModelViewSet):
     queryset = State.objects.get_queryset()
-    serializer_class = StateSerializer
+    # serializer_class = StateSerializer
     def get_queryset(self):
         countryCode = self.kwargs.get('code')
         #get object or 404
@@ -30,6 +30,8 @@ class StateViewSet(viewsets.ModelViewSet):
         serializer_class = self.serializer_class
         if self.request.method == 'POST':
             serializer_class = StateCreateSerializer
+        else:
+            serializer_class = StateSerializer
         return serializer_class
 
     def list(self, request, **kwargs):
@@ -37,12 +39,7 @@ class StateViewSet(viewsets.ModelViewSet):
         r.data = r.data['results']
         return r
     
-    # def create(self, request, **kwargs):
-    #     state = super().create(self, request, **kwargs)
-    #     return state
-    def post_state(self, request, **kwargs):
-        state = super().create(self, request, **kwargs)
-        return state
+
 
         
 
