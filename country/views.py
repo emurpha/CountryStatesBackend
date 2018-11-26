@@ -10,7 +10,7 @@ from rest_framework.decorators import api_view
 
 
 class CountryViewSet(viewsets.ModelViewSet):
-    queryset = Country.objects.all()
+    queryset = Country.objects.all().order_by('name')
     serializer_class = CountrySerializer
     def list(self, request):
         r = super().list(self, request)
@@ -19,12 +19,10 @@ class CountryViewSet(viewsets.ModelViewSet):
 
 class StateViewSet(viewsets.ModelViewSet):
     queryset = State.objects.get_queryset()
-    # serializer_class = StateSerializer
     def get_queryset(self):
         countryCode = self.kwargs.get('code')
-        #get object or 404
         country=get_object_or_404(Country,code=countryCode)
-        return country.states.all()
+        return country.states.all().order_by('name')
     
     def get_serializer_class(self):
         serializer_class = self.serializer_class
